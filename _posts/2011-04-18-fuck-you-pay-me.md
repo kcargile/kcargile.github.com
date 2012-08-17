@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Mike Monteiro on Contracts: Fuck You. Pay Me.
-tags: business, consulting, contracts, law
+tags: [consulting, contracts, law]
+permalink:  /2011/04/mike-monteiro-on-contracts-fuck-you-pay
 ---
 
 {{ page.title }}
