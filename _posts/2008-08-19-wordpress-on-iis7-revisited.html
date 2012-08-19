@@ -1,0 +1,48 @@
+---
+layout: post
+title: WordPress on IIS7 Revisited
+tags: [blogging, IIS7, LAMP, linux, open source, PHP, Software Development, Tools, WordPress]
+permalink: /2008/08/wordpress-on-iis7-revisited.html
+description: Running WordPress on IIS7 presents more complications than it does advantages.
+summary: A week of up-time on IIS7 has given me some time to really dig in and asses the feasibility of WordPress on a Windows hosting platform. I was particularly interested in testing compatibility of the two, but I also wanted to gauge the performance of the new PHP pipeline in IIS7.
+---
+
+<div>
+  <p>
+    A week of up-time on IIS7 has given me some time to really dig in and asses the feasibility of WordPress on a Windows
+    hosting platform. I was particularly interested in testing compatibility of the two, but I also wanted to gauge the
+    performance of the new PHP pipeline in IIS7.
+  </p>
+  <p>
+    I was pretty impressed with the speed of PHP on IIS7, and setup was painless. Sure there were none of the Apache modules
+    that have become so ubiquitous and configuration was a bit different, but there had to be workarounds. And while I suspect
+    that most PHP applications could be coaxed to run perfectly on an IIS7 box, my final conclusion was that WordPress and
+    IIS just aren't a good match.
+  </p>
+  <p>
+    In the end I had to concede my requirement to manage everything via a single point, and I moved my WordPress websites to
+    a LAMP server. The benefits of simplifying management were far outweighed by having a supported and well-tested execution
+    platform. Wistful thinking, I know.
+  </p>
+  <p>
+    Here are some of the issues I ran into, which altogether were enough to compel me to drop IIS:
+  </p>
+  <p>
+    <ul>
+    <li>PHP's path syntax for includes behaves inconsistently on IIS7. For example, a statement like require_once('./wp-load.php') throws an exception, while require_once('wp-load.php') does not. And while this can be easily remedied with a quick find-and-replace operation, doing so is a hack that invites headaches down the road. And while there may be a setting in IIS that fixes this, I couldn't find it anywhere.</li>
+    <li>Arne Brachhold's excellent <a href="http://wordpress.org/extend/plugins/google-sitemap-generator/">Google Sitemap Generator</a> plugin fails to update correctly when WordPress content changes. In other words, anytime you make <em>any</em> changes to your blog, you have to manually regenerate the sitemap. I didn't spend too much time debugging this one, but suffice it to say it works perfectly on Debian with the exact same configuration.</li>
+    <li>Rewriting URLs is tenuous at best. Creating vanity URLs for posts works perfectly using the <a href="http://www.nathanm.com/">Remove index.php</a> WordPress plugin, but this doesn't address other areas of the site like RSS feeds, pages, and custom content. Working around this using available IIS7 rewriting tools is a tricky proposition on a shared hosting account, again resulting in the maintenance of an otherwise needless hack.</li>
+    <li>Inability to easily tweak PHP settings. Modifying the maximum post size is usually much easier on to do with an Apache-based installation, for example.</li>
+    <li>A host of other IIS-configuration-related problems, such as several unexpected 405 errors while accessing base WordPress pages. Like the problems with the Google Sitemap Generator plugin, these disappeared once the website was moved to a Linux server. </li>
+    <li>Lack of support. Let's face it, with IIS7 still in CTP there aren't many places to go for help with PHP on IIS7, even fewer for WordPress on IIS.</li>
+    </ul>
+  </p>
+  <p>
+    For some folks, these types of issues may still be outweighed by specific reasons to tough it out on IIS7—having no other
+    choice, for example. For me, however, they amounted to a bunch of problems that I simply don't have time to worry about.
+  </p>
+  <p>
+    Weigh your options and choose carefully.
+  </p>
+  klc;
+</div>
