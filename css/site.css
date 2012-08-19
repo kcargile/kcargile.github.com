@@ -54,6 +54,7 @@ p {
 
 .post .posttitle {
   margin-bottom: 1em;
+  padding-bottom: .8em;
   border-bottom: 1px dotted #999999;
 }
 
