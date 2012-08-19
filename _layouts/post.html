@@ -9,7 +9,7 @@ layout: default
   {% unless page.tags == empty %}
     {% assign tags_list = page.tags %}
     <p class="tags">
-      Tagged: {{ page.tags | join | ',&nbsp;' }}
+      Tagged: {{ page.tags | join : ', ' }}
     </p>
   {% endunless %}
   <div id="comments">
