@@ -53,10 +53,10 @@ p {
 }
 
 .post .posttitle {
-  border-bottom: 1px dotted #999999;
+  margin-bottom: 1em;
 }
 
-.post .posttitle h1 {
+.post .posttitle h2 {
   margin: .8em 0 0 0;
 }
 
