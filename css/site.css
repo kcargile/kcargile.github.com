@@ -21,6 +21,10 @@ h1 {
   font-size: 3em;
 }
 
+h1 a {
+  text-decoration: none;
+}
+
 h1, h2, h3 {
 	margin: .8em 0 .8em 0;
 	padding:0;
@@ -115,21 +119,18 @@ footer p {
 }
 
 footer a {
-	color:#ffffff;
+	color:#666666;
+  text-decoration:none;
 }
 
 footer a:hover {
-	color:#fff;
+	color:#ffffff;
 	background:#369;
 	text-decoration:none;
 }
 
 .tags {
   margin-top: .8em;
-}
-
-.copyright {
-  color: #666666;
 }
 
 #comments {
