@@ -3,8 +3,10 @@ layout: default
 ---
 
 <div class="post">
-  <h2>{{ page.title }}</h2>
-  <h3>{{ page.date | date_to_long_string }}</h3>
+  <div class="posttitle">
+    <h2>{{ page.title }}</h2>
+    {{ page.date | date_to_long_string }}
+  </div>
   {{ content }}
   {% unless page.tags == empty %}
     {% assign tags_list = page.tags %}
