@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>{{ page.title }}</title>
-        <link href="http://fonts.googleapis.com/css?family=Varela" rel="stylesheet" type="text/css" />
-        <link href="/css/site.css" rel="stylesheet" type="text/css" />
-        <link href="http://feeds.feedburner.com/kriscargile" rel="alternate" title="Kristopher Cargile" type="application/atom+xml" />
-        <meta name="description" content="{{ page.description }}">
-        <meta name="author" content="{{ site.author.name }}">
-    </head>
-    <body>
-        <header>
-        </header>
-        <div>
-            {{ content }}
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="{{ page.description }}">
+    <meta name="author" content="{{ site.author.name }}">
+    <meta name="robots" content="index, follow" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="../css/site.css" media="screen" />
+    <link href="http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css" />
+    <link href="http://feeds.feedburner.com/kriscargile" rel="alternate" title="Kristopher Cargile" type="application/atom+xml" />
+    <title>{{ page.title }} | Kristopher Cargile</title>
+  </head>
+  <body>
+    <header>
+    </header>
+    <div class="colmask rightmenu">
+      <div class="colleft">
+        <div class="col1">
+          {{ content }}
+          <h1>Kristopher Cargile</h1>
+          <h2>Mike Monteiro on Contracts: Fuck You. Pay Me.</h2>
+          <h3>April 18, 2011</h3>
+          <p>
+            Mule Design Studio co-founder Mike Monteiro leads a poignant and gratuitously profane talk on the importance of contracts and legal representation for freelancers and consultants.
+            His perspective is–not surprisingly–that of a designer, but his message aptly transcends disciplines. If you've ever worked without a contract, inked a client agreement sans second thought,
+            or wondered exactly how to deal with that asshole that can never seem to find his checkbook, you should watch this.<br />
+            <p><iframe src="http://player.vimeo.com/video/22053820?title=0&amp;byline=0&amp;portrait=0" width="640" height="360" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p>
+            klc;
+            <p class="tags">Tagged: </p>
+          </p>
         </div>
-        <footer>
-            <p class="copyright">All post content Copyright &copy; Cargile Technology Group, LLC 2005 - 2012.</p>
-        </footer>
-        <script type="text/javascript">
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-488710-1']);
-          _gaq.push(['_trackPageview']);
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-        </script>
-    </body>
+        <div class="col2">
+          <div id="callout">
+            <img src="../images/me.jpg" width="100" border="0" height="100" alt="It's me!" />
+          </div>
+          <h2>About Me</h2>
+          <p>I'm a software engineer and entrepreneur with eighteen years of experience, starting my first IT business when I was nineteen years old. Since, my career has been centered around work as a consultant, where I partner with clients of all kinds.</p>
+          <p>Learn more about my experience or contact me at <a href="http://linkd.in/S6iQl2">LinkedIn</a>.</p>
+          <h2>Noteworthy Projects</h2>
+          <p>TBD</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p class="externallinks"><a href="http://www.github.com/kcargile">Github</a> | <a href="http://linkd.in/S6iQl2">LinkedIn</a> | <a href="http://linkd.in/S6iQl2">Twitter</a> | <a href="http://feeds.feedburner.com/kriscargile">RSS</a></p>
+      <p class="copyright">Original post content and photography copyright &copy; 2005 - 2012 Cargile Technology Group, LLC.<br />Other portions of this site are released under the LGPL license.</p>
+    </footer>
+  </body>
 </html>
