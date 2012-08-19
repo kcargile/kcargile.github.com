@@ -7,12 +7,12 @@ title : Sitemap
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>http://www.kriscargile.com/</loc>
-    <lastmod>{{ date }}</lastmod>
+    <lastmod>{{ 'now' }}</lastmod>
   </url>
   {% for post in site.posts %}
   <url>
     <loc>{{site.production_url}}{{ post.url }}</loc>
-    <lastmod>{{ page.date }}</lastmod>
+    <lastmod>{{ post.date }}</lastmod>
   </url>
   {% endfor %}
 </urlset>
