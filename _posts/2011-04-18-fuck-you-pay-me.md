@@ -1,0 +1,12 @@
+---
+layout: post
+title: Mike Monteiro on Contracts: Fuck You. Pay Me.
+tags: [consulting, contracts, law]
+permalink: /2011/04/mike-monteiro-on-contracts-fuck-you-pay
+---
+
+Mule Design Studio co-founder Mike Monteiro leads a poignant and gratuitously profane talk on the importance of contracts and legal representation for freelancers and consultants. His perspective is–not surprisingly–that of a designer, but his message aptly transcends disciplines. If you've ever worked without a contract, inked a client agreement sans second thought, or wondered exactly how to deal with that asshole that can never seem to find his checkbook, you absolutely <b>MUST</b> see this.<br />
+<br />
+<iframe frameborder="0" height="324" src="http://player.vimeo.com/video/22053820?title=0&amp;byline=0&amp;portrait=0" width="522"></iframe><br />
+<br />
+klc;
