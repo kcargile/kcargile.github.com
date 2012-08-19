@@ -7,7 +7,6 @@
     <meta name="robots" content="index, follow" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="/css/site.css" media="screen" />
-    <link href="http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css" />
     <link href="http://feeds.feedburner.com/kriscargile" rel="alternate" title="Kristopher Cargile" type="application/atom+xml" />
     <title>{{ page.title }} - Kristopher Cargile</title>
   </head>
@@ -38,39 +37,37 @@
             via <a href="http://linkd.in/S6iQl2">LinkedIn</a>
           </p>
           <h2>Recent Chatter</h2>
-          <p>
-            <script src="http://widgets.twimg.com/j/2/widget.js"></script>
-            <script>
-            new TWTR.Widget({
-              version: 2,
-              type: 'profile',
-              rpp: 5,
-              interval: 6000,
-              width: 'auto',
-              height: 300,
-              theme: {
-                shell: {
-                  background: 'transparent',
-                  color: '#000000'
-                },
-                tweets: {
-                  background: 'transparent',
-                  color: '#000000',
-                  links: '#369'
-                }
+          <script src="http://widgets.twimg.com/j/2/widget.js"></script>
+          <script>
+          new TWTR.Widget({
+            version: 2,
+            type: 'profile',
+            rpp: 5,
+            interval: 6000,
+            width: 'auto',
+            height: 300,
+            theme: {
+              shell: {
+                background: '#eee',
+                color: '#000000'
               },
-              features: {
-                scrollbar: false,
-                loop: false,
-                live: true,
-                hashtags: false,
-                timestamp: true,
-                avatars: false,
-                behavior: 'all'
+              tweets: {
+                background: 'transparent',
+                color: '#000000',
+                links: '#369'
               }
-            }).render().setUser('kriscargile').start();
-            </script>
-          </p>
+            },
+            features: {
+              scrollbar: false,
+              loop: false,
+              live: true,
+              hashtags: false,
+              timestamp: true,
+              avatars: false,
+              behavior: 'all'
+            }
+          }).render().setUser('kriscargile').start();
+          </script>
         </div>
       </div>
     </div>

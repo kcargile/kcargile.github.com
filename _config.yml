@@ -27,7 +27,3 @@ author :
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
 production_url : http://kcargile.github.com
-
-archive_path: /archive.html
-categories_path : /categories.html
-tags_path : /tags.html
