@@ -6,4 +6,7 @@ layout: default
   <h2>{{ page.title }}</h2>
   <h3>{{ page.date | date_to_long_string }}</h3>
   {{ content }}
+  {% unless page.tags == empty %}
+    <p class="tags">Tagged: {{ page.tags }}</p>
+  {% endunless %}
 </div>
