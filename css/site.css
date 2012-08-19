@@ -23,6 +23,10 @@ h1 {
 
 h1 a {
   text-decoration: none;
+  color: #000000;
+}
+
+h1 a:hover {
 }
 
 h1, h2, h3 {
@@ -111,6 +115,7 @@ footer {
   color: #ffffff;
   text-align: center;
   padding-top: 1em;
+  font-size: .8em;
 }
 
 footer p {
@@ -137,4 +142,9 @@ footer a:hover {
   padding-top: 1em;
   margin-top: 1.8em;
   border-top: 1px dotted #999999;
+}
+
+.twtr-hd,
+.twtr-ft {
+  display: none;
 }
