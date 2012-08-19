@@ -5,6 +5,11 @@
     <meta name="description" content="{{ page.description }}">
     <meta name="author" content="{{ site.author.name }}">
     <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="{{ page.title }}"/>
+    <meta property="og:type" content="blog"/>
+    <meta property="og:url" content="{{ page.url }}"/>
+    <meta property="og:site_name" content="Kristopher Cargile"/>
+    <meta property="og:description" content="{{ page.description }}" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="/css/site.css" media="screen" />
     <link href="http://feeds.feedburner.com/kriscargile" rel="alternate" title="Kristopher Cargile" type="application/atom+xml" />
@@ -42,7 +47,7 @@
           new TWTR.Widget({
             version: 2,
             type: 'profile',
-            rpp: 10,
+            rpp: 7,
             interval: 6000,
             width: 'auto',
             height: 300,
