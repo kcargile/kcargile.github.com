@@ -131,3 +131,8 @@ footer a:hover {
 .copyright {
   color: #666666;
 }
+
+#disqus_thread {
+  margin-top: .8em;
+  border-top:  1px dotted #999999;
+}
