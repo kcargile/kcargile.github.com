@@ -11,7 +11,7 @@ title : Sitemap
   </url>
   {% for post in site.posts %}
   <url>
-    <loc>{{site.production_url}}{{ post.url }}</loc>
+    <loc>{{ site.production_url }}{{ post.url }}</loc>
     <lastmod>{{ post.date | date: "%a %b %d %X %Z %Y" }}</lastmod>
   </url>
   {% endfor %}
