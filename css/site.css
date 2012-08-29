@@ -176,7 +176,11 @@ footer a:hover {
   text-decoration: none;
 }
 
+.postsummary h2 { 
+	margin-top: .1em;
+}
+
 .postsummary h4 { 
-	margin: .1em 0 .8em 0;
+	margin: 0 0 .8em 0;
 	padding: 0;
 }
