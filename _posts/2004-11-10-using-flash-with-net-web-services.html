@@ -114,41 +114,39 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
   <p>
     Our public-facing .NET web service methods were simple and straight forward:
   </p>
-  <p class="codesample">
-    {% highlight csharp %}
-    [WebMethod]
-    public bool SubmitRsvp(string firstName, string lastName, bool isAttending,
-    int numberAttending, string emailAddress, string comments, string emailAddressRecipient)
+  {% highlight csharp %}
+  [WebMethod]
+  public bool SubmitRsvp(string firstName, string lastName, bool isAttending,
+  int numberAttending, string emailAddress, string comments, string emailAddressRecipient)
+  {
+    if (firstName == string.Empty || lastName == string.Empty ||
+      emailAddressRecipient == string.Empty || !IsValidEmail(emailAddressRecipient))
     {
-      if (firstName == string.Empty || lastName == string.Empty ||
-        emailAddressRecipient == string.Empty || !IsValidEmail(emailAddressRecipient))
+      return false;
+    }
+
+    if (emailAddress != string.Empty &amp;&amp; emailAddress != null)
+    {
+      if (!IsValidEmail(emailAddress))
       {
         return false;
       }
-
-      if (emailAddress != string.Empty &amp;&amp; emailAddress != null)
-      {
-        if (!IsValidEmail(emailAddress))
-        {
-          return false;
-        }
-      }
-
-      if (!isAttending)
-      {
-        numberAttending = 0;
-      }
-
-      return SendEmails(firstName, lastName, isAttending, numberAttending,
-        emailAddress, comments, emailAddressRecipient);
     }
 
-    [WebMethod]
-    public bool IsValidEmail(string emailAddress) {
-      // validate email address...
+    if (!isAttending)
+    {
+      numberAttending = 0;
     }
-    {% endhighlight %}
-  </p>
+
+    return SendEmails(firstName, lastName, isAttending, numberAttending,
+      emailAddress, comments, emailAddressRecipient);
+  }
+
+  [WebMethod]
+  public bool IsValidEmail(string emailAddress) {
+    // validate email address...
+  }
+  {% endhighlight %}
   <p>
     Our client's application added an additional level of complexity: the content of the CD-ROM changed for each customer,
     which got us thinking on how to best architect the service model. Our final vision was to build a framework in Flash,
