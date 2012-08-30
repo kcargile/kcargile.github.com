@@ -34,30 +34,30 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
 
   submission.var DoSubmit = function(isAttending) {
     if (isNaN(parseInt(howMany.text))) {
-    trace("Number attending was NaN.");
-    redAttend.play();
-    prevFrame();
+      trace("Number attending was NaN.");
+      redAttend.play();
+      prevFrame();
     }
     else {
-    _isAttending = isAttending;
-    if (email.text.length &gt; 0)  {
-      ValidateEmail();
-    }
-    else {
-      SubmitRsvp();
-    }
+      _isAttending = isAttending;
+      if (email.text.length &gt; 0)  {
+        ValidateEmail();
+      }
+      else {
+        SubmitRsvp();
+      }
     }
   }
 
   var ValidateEmail = function() {
     if (email.text.length &gt; 0) {
-    trace("Validting email...");
-    wsRsvp = new WebServiceConnector();
-    wsRsvp.WSDLURL = "http://someWebServiceUrl/MyService1.asmx?WSDL";
-    wsRsvp.operation = "IsValidEmail";
-    wsRsvp.params = [email.text];
-    wsRsvp.addEventListener("result", wsValidateResult);
-    wsRsvp.trigger();
+      trace("Validting email...");
+      wsRsvp = new WebServiceConnector();
+      wsRsvp.WSDLURL = "http://someWebServiceUrl/MyService1.asmx?WSDL";
+      wsRsvp.operation = "IsValidEmail";
+      wsRsvp.params = [email.text];
+      wsRsvp.addEventListener("result", wsValidateResult);
+      wsRsvp.trigger();
     }
   }
 
@@ -67,13 +67,14 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
     wsRsvp.WSDLURL = "http://someWebServiceUrl/MyService2.asmx?WSDL";
     wsRsvp.operation = "SubmitRsvp";
     wsRsvp.params = [
-    firstName.text,
-    lastName.text,
-    _isAttending,
-    parseInt(howMany.text),
-    email.text,
-    comments.text,
-    recipientEmail];
+      firstName.text,
+      lastName.text,
+      _isAttending,
+      parseInt(howMany.text),
+      email.text,
+      comments.text,
+      recipientEmail
+    ];
     wsRsvp.addEventListener("result", wsSubmitResult);
     wsRsvp.trigger();
   }
@@ -93,12 +94,12 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
   wsSubmitResult.result = function(e:Object) {
     trace("Submission result: " + e.target.results);
     if (e.target.results == true) {
-    play();
+     play();
     }
     else {
-    trace("Rsvp could not be submitted.");
-    redSend.play();
-    prevFrame();
+      trace("Rsvp could not be submitted.");
+      redSend.play();
+      prevFrame();
     }
   }
 
@@ -113,39 +114,41 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
   <p>
     Our public-facing .NET web service methods were simple and straight forward:
   </p>
-  {% highlight c# %}
-  [WebMethod]
-  public bool SubmitRsvp(string firstName, string lastName, bool isAttending,
-  int numberAttending, string emailAddress, string comments, string emailAddressRecipient)
-  {
-    if (firstName == string.Empty || lastName == string.Empty ||
-      emailAddressRecipient == string.Empty || !IsValidEmail(emailAddressRecipient))
+  <p class="codesample">
+    {% highlight csharp %}
+    [WebMethod]
+    public bool SubmitRsvp(string firstName, string lastName, bool isAttending,
+    int numberAttending, string emailAddress, string comments, string emailAddressRecipient)
     {
-      return false;
-    }
-
-    if (emailAddress != string.Empty &amp;&amp; emailAddress != null)
-    {
-      if (!IsValidEmail(emailAddress))
+      if (firstName == string.Empty || lastName == string.Empty ||
+        emailAddressRecipient == string.Empty || !IsValidEmail(emailAddressRecipient))
       {
         return false;
       }
+
+      if (emailAddress != string.Empty &amp;&amp; emailAddress != null)
+      {
+        if (!IsValidEmail(emailAddress))
+        {
+          return false;
+        }
+      }
+
+      if (!isAttending)
+      {
+        numberAttending = 0;
+      }
+
+      return SendEmails(firstName, lastName, isAttending, numberAttending,
+        emailAddress, comments, emailAddressRecipient);
     }
 
-    if (!isAttending)
-    {
-      numberAttending = 0;
+    [WebMethod]
+    public bool IsValidEmail(string emailAddress) {
+      // validate email address...
     }
-
-    return SendEmails(firstName, lastName, isAttending, numberAttending,
-      emailAddress, comments, emailAddressRecipient);
-  }
-
-  [WebMethod]
-  public bool IsValidEmail(string emailAddress) {
-    // validate email address...
-  }
-  {% endhighlight %}
+    {% endhighlight %}
+  </p>
   <p>
     Our client's application added an additional level of complexity: the content of the CD-ROM changed for each customer,
     which got us thinking on how to best architect the service model. Our final vision was to build a framework in Flash,
