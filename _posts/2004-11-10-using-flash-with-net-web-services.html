@@ -117,7 +117,8 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
   {% highlight csharp %}
   [WebMethod]
   public bool SubmitRsvp(string firstName, string lastName, bool isAttending,
-  int numberAttending, string emailAddress, string comments, string emailAddressRecipient)
+    int numberAttending, string emailAddress, string comments,
+    string emailAddressRecipient)
   {
     if (firstName == string.Empty || lastName == string.Empty ||
       emailAddressRecipient == string.Empty || !IsValidEmail(emailAddressRecipient))
