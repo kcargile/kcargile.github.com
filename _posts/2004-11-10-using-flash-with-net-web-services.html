@@ -1,0 +1,161 @@
+---
+layout: post
+published: true
+title: Using Flash with .NET Web Services
+tags: Software Development, ActionScript, .NET, web services, Flash    
+permalink: /2004-11-10-using-flash-with-net-web-services.html
+description: Macromedia's Flash platform has historically fallen into the realm of graphic design, used for all of those wonderfully irritating banners and website intros. 
+summary: Macromedia's Flash platform has historically fallen into the realm of graphic design, used for all of those wonderfully irritating banners, <a href="http://www.homestarrunner.com/sbemail51.html" target="_blank">website intros</a> and interactive CD-ROMs. A recent project that called for using Flash as web-service front-end, however, demonstrated that Macromedia's commitment to XML and web services may very well make it a contender in the ever changing thin client game.
+---
+<div>
+  <p>
+	Macromedia's Flash platform has historically fallen into the realm of graphic design, used for all of those wonderfully irritating banners, 
+	<a href="http://www.homestarrunner.com/sbemail51.html" target="_blank">website intros</a> and interactive CD-ROMs. A recent project that 
+	called for using Flash as web-service front-end, however, demonstrated that Macromedia's commitment to XML and web services may very well 
+	make it a contender in the ever changing thin client game.
+  </p>
+  <p>
+	One particularly compelling case for connection Flash to a web service is to provide functionality to CD-ROM applications that is traditionally 
+	available only in a server-context. Case-in-point: we were able to quickly build a multi-platform, email enabled multimedia product that could 
+	be widely distributed via the Internet, direct mail, and the like. We simply connected Flash to a set of simple XML web services and let our 
+	application server take care of the rest.
+  </p>
+  <p>
+	Our ActionScript, which had no problem talking to our .NET based service layer, looked something like this:
+  </p>
+  {% highlight actionscript %}
+  import mx.data.components.WebServiceConnector;
+
+  var wsRsvp:WebServiceConnector;
+  var wsValidateResult:Object = new Object();
+  var wsSubmitResult:Object = new Object();
+  var recipientEmail:String = "someValidEmailAddress";
+  var _isAttending:Boolean = true;
+
+  submission.var DoSubmit = function(isAttending) {
+    if (isNaN(parseInt(howMany.text))) {
+    trace("Number attending was NaN.");
+    redAttend.play();
+    prevFrame();
+    }
+    else {
+    _isAttending = isAttending;
+    if (email.text.length &gt; 0)  {
+      ValidateEmail();
+    }
+    else {
+      SubmitRsvp();
+    }
+    }
+  }
+
+  var ValidateEmail = function() {
+    if (email.text.length &gt; 0) {
+    trace("Validting email...");
+    wsRsvp = new WebServiceConnector();
+    wsRsvp.WSDLURL = "http://someWebServiceUrl/MyService1.asmx?WSDL";
+    wsRsvp.operation = "IsValidEmail";
+    wsRsvp.params = [email.text];
+    wsRsvp.addEventListener("result", wsValidateResult);
+    wsRsvp.trigger();
+    }
+  }
+
+  var SubmitRsvp = function() {
+    trace("Submitting the Rsvp...");
+    wsRsvp = new WebServiceConnector();
+    wsRsvp.WSDLURL = "http://someWebServiceUrl/MyService2.asmx?WSDL";
+    wsRsvp.operation = "SubmitRsvp";
+    wsRsvp.params = [
+    firstName.text,
+    lastName.text,
+    _isAttending,
+    parseInt(howMany.text),
+    email.text,
+    comments.text,
+    recipientEmail];
+    wsRsvp.addEventListener("result", wsSubmitResult);
+    wsRsvp.trigger();
+  }
+
+  wsValidateResult.result = function(e:Object) {
+    trace("Validation result: " + e.target.results);
+    if (e.target.results == true) {
+    SubmitRsvp();
+    }
+    else {
+    trace("Email was invalid.");
+    redEmail.play();
+    prevFrame();
+    }
+  }
+
+  wsSubmitResult.result = function(e:Object) {
+    trace("Submission result: " + e.target.results);
+    if (e.target.results == true) {
+    play();
+    }
+    else {
+    trace("Rsvp could not be submitted.");
+    redSend.play();
+    prevFrame();
+    }
+  }
+
+  stop();
+  DoSubmit(true);
+  {% endhighlight %}
+  <p>
+    The important things to note here are the declaration of the WebServiceConnector objects, which are what make this all possible, and Flash's use of asynchronous
+    calls to web service methods. The use of callbacks is a very cool feature&mdash;one you might not expect to find in ActionScript&mdash;but will require some
+    careful planning on your part as they sometimes make simple tasks unnecessarily complex.
+  </p>
+  <p>
+    Our public-facing .NET web service methods were simple and straight forward:
+  </p>
+  {% highlight c# %}
+  [WebMethod]
+  public bool SubmitRsvp(string firstName, string lastName, bool isAttending,
+  int numberAttending, string emailAddress, string comments, string emailAddressRecipient)
+  {
+    if (firstName == string.Empty || lastName == string.Empty ||
+      emailAddressRecipient == string.Empty || !IsValidEmail(emailAddressRecipient))
+    {
+      return false;
+    }
+
+    if (emailAddress != string.Empty &amp;&amp; emailAddress != null)
+    {
+      if (!IsValidEmail(emailAddress))
+      {
+        return false;
+      }
+    }
+
+    if (!isAttending)
+    {
+      numberAttending = 0;
+    }
+
+    return SendEmails(firstName, lastName, isAttending, numberAttending,
+      emailAddress, comments, emailAddressRecipient);
+  }
+
+  [WebMethod]
+  public bool IsValidEmail(string emailAddress) {
+    // validate email address...
+  }
+  {% endhighlight %}
+  <p>
+    Our client's application added an additional level of complexity: the content of the CD-ROM changed for each customer,
+    which got us thinking on how to best architect the service model. Our final vision was to build a framework in Flash,
+    and use web services to deliver content and ActionScript logic to the movie at runtime. We found that the connectivity
+    assumption that we'd have to make (already a requirement anyways) and the potential of introducing some latency into
+    an otherwise fast framework were far outweighed by the ability to customize an application that's being delivered on
+    a format that's typically obsolete once it leaves your office.<br /><br />You can get more information about Flash's
+    support for web services at Macromedia's <a href="http://www.macromedia.com/devnet/mx/flash/" target="_blank">Flash
+    Developer Center</a>.
+  </p>
+  <br />
+  klc;
+</div>
