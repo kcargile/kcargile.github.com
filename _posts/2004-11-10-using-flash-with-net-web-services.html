@@ -23,7 +23,7 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
   <p>
 	Our ActionScript, which had no problem talking to our .NET based service layer, looked something like this:
   </p>
-  {% highlight actionscript %}
+  ```actionscript
   import mx.data.components.WebServiceConnector;
 
   var wsRsvp:WebServiceConnector;
@@ -104,7 +104,7 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
 
   stop();
   DoSubmit(true);
-  {% endhighlight %}
+  ```
   <p>
     The important things to note here are the declaration of the WebServiceConnector objects, which are what make this all possible, and Flash's use of asynchronous
     calls to web service methods. The use of callbacks is a very cool feature&mdash;one you might not expect to find in ActionScript&mdash;but will require some
@@ -113,7 +113,7 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
   <p>
     Our public-facing .NET web service methods were simple and straight forward:
   </p>
-  {% highlight c# %}
+  ```c#
   [WebMethod]
   public bool SubmitRsvp(string firstName, string lastName, bool isAttending,
   int numberAttending, string emailAddress, string comments, string emailAddressRecipient)
@@ -145,7 +145,7 @@ summary: Macromedia's Flash platform has historically fallen into the realm of g
   public bool IsValidEmail(string emailAddress) {
     // validate email address...
   }
-  {% endhighlight %}
+  ```
   <p>
     Our client's application added an additional level of complexity: the content of the CD-ROM changed for each customer,
     which got us thinking on how to best architect the service model. Our final vision was to build a framework in Flash,
