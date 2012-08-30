@@ -1,0 +1,38 @@
+---
+layout: post
+published: true
+title: Using the MSEL 2.0 in an N-Tier Environment
+tags: open source, Software Development, .NET, MSEL, Miscellaneous, Enterprise Library    
+permalink: /2006-01-13-using-the-msel-20-in-an-ntier-environment.html
+description: A while back, I blogged about using alternate configuration contexts with the MSEL 1.1. It turns out that even with the improved configuration capabilities of 
+summary: A while back, I blogged about using alternate configuration contexts with the MSEL 1.1. It turns out that even with the improved configuration capabilities of .NET 2.0, using the MSEL in a loosely coupled, n-tier environment will also require you to jump through some hoops.<br /><br />The primary reason for this is that the .NET CLR only gives you one configuration context per AppDomain (<a href="http://blogs.msdn.com/suzcook/" target="_blank">Suzanne Cook</a> has some great info on her website about this). A stand-alone business logic layer therefore would have configuration context equivalent to Web.config if you're using it in an ASP.NET application, thus rendering your app.config file invisible.<br />
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>A while back, I blogged about using alternate configuration contexts with the MSEL 1.1. It turns out that even with the improved configuration capabilities of .NET 2.0, using the MSEL in a loosely coupled, n-tier environment will also require you to jump through some hoops.<br /><br />The primary reason for this is that the .NET CLR only gives you one configuration context per AppDomain (<a href="http://blogs.msdn.com/suzcook/" target="_blank">Suzanne Cook</a> has some great info on her website about this). A stand-alone business logic layer therefore would have configuration context equivalent to Web.config if you're using it in an ASP.NET application, thus rendering your app.config file invisible.<br /><a name='more'></a><br />Ultimately, you have two options. You can put the MSEL configuration data directly in Web.config, but this severely limits the scalability and reusability of your application. The better alternative is to use the MSEL factories that are designed specifically for this purpose.<br /><br />The way that you go about this is similar to it was in the 1.1 version of the MSEL, with a couple of key differences. First, you'll need an instance of a class that implements the IConfiurationSource interface to get a handle to the configuration file. IConfigurationSource is new in MSEL 2.0, and it allows you to explicitly define your configuration source (as in our case) or to use a non-standard names, formats, etc. (an RDB, for example). You'll use this instance as an argument for the factory methods for each of the blocks.<br /><br />The most common of the IConfigurationSource implementers is FileConfigurationSource which, incidentally, is the default used internally by the MSEL. I typically create an internal static instance of this, so that all of my classes can share a common configuration instance. For example:<br /><pre class="kccodeblock"><code>private static IConfigurationSource cfgSource = new FileConfigurationSource("MyConfigFileName.dll.config");</code></pre>Be careful, however, if you're building an API that could be used by a variety of hosting processes. Since you don't want to make any assumptions about the location of the config file relative to the hosting application, you're a little safer determining it at runtime. We'll modify the code above slightly to reflect this:<br /><pre class="kccodeblock"><code>private static string ConfigFileName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Replace(@”file:\”, “”) + “\\” + "MyAssembly.dll.config";
+<br />private static IConfigurationSource cfgSource = new FileConfigurationSource(ConfigFileName);</code></pre>Now you only need to get an instance of each block using the alternate IConfigurationSource. Again, I typically put these in a location common to my assembly. One word of caution: you may be tempted to put these somewhere common to your application and make them public, but this will represent a risk to your application. Users of your API could easily throw a wrench in your exception handling aspect or could subvert the isolation to data access provided by your BLL. It also potentially increases coupling between assmeblies. If you choose to do this, use ILDASM and ILASM to change the protection level of these members to something more appropriate like <span style="font-family: courier;">famorassm</span>.<br /><br />Either way, you'll end up with declarations like the following:<br /><pre class="kccodeblock"><code>private static IConfigurationSource cfgSource = new FileConfigurationSource(ConfigFileName);
+<br />internal static CacheManagerFactory CacheFactory = new CacheManagerFactory(cfgSource);
+<br />internal static ExceptionPolicyFactory ExceptionFactory = new ExceptionPolicyFactory(cfgSource);
+<br />internal static DatabaseProviderFactory DataFactory = new DatabaseProviderFactory(cfgSource);</code></pre>You'll then use these members to access the MSEL instead of the typical public methods. For the most part they'll work the same, though the arguments are usually arranged a little differently. For example, an exception is passed to the ExceptionHandling block as follows:<br /><pre class="kccodeblock"><code>try
+<br />{
+<br />  // TODO: do something useful..
+<br />}
+<br />catch(Exception e)
+<br />{
+<br />  bool rethrow = ExceptionFactory.Create(“Data”).HandleException(e);
+<br />}</code></pre>A little extra time in planning your MSEL implementation will save you hours and hours of development time, and will help your application to scale without abandon.<br /><br />Happy factoring!<br /><br /><a href="http://cdn.kriscargile.com/samples/ntier-msel.zip">ntier-msel.zip</a><br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

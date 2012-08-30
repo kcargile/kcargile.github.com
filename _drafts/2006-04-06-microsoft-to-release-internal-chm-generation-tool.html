@@ -1,0 +1,27 @@
+---
+layout: post
+published: true
+title: Microsoft to Release Internal CHM Generation Tool?
+tags: NDoc, Tools, Software Development, .NET, documentation, Visual Studio, Sandcastle    
+permalink: /2006-04-06-microsoft-to-release-internal-chm-generation-tool.html
+description: A (fairly) recent post by MS on the MSDN Product Feedback Center indicates that they may release their internal CHM/HTML Help generation tool to the general pu
+summary: A (fairly) <a href="http://lab.msdn.microsoft.com/productfeedback/viewfeedback.aspx?feedbackid=2d65db5c-7bf5-43f3-8496-083aa966c411" target="_blank">recent post</a> by MS on the <a href="http://lab.msdn.microsoft.com/productfeedback/" target="_blank">MSDN Product Feedback Center</a> indicates that they may release their internal CHM/HTML Help generation tool to the general public. This seems to be in direct response to the community-wide perception that the <a href="http://ndoc.sourceforge.net/" target="_blank">NDoc</a> project has been dead for over a year, however, NDoc admin Kevin Downs has posted around the net to the contrary. In fact, it is rumored that there is now a .NET 2.0-compatible alpha version of NDoc floating around out there.<br />
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>A (fairly) <a href="http://lab.msdn.microsoft.com/productfeedback/viewfeedback.aspx?feedbackid=2d65db5c-7bf5-43f3-8496-083aa966c411" target="_blank">recent post</a> by MS on the <a href="http://lab.msdn.microsoft.com/productfeedback/" target="_blank">MSDN Product Feedback Center</a> indicates that they may release their internal CHM/HTML Help generation tool to the general public. This seems to be in direct response to the community-wide perception that the <a href="http://ndoc.sourceforge.net/" target="_blank">NDoc</a> project has been dead for over a year, however, NDoc admin Kevin Downs has posted around the net to the contrary. In fact, it is rumored that there is now a .NET 2.0-compatible alpha version of NDoc floating around out there.<br /><a name='more'></a><br />Check out <a href="http://weblogs.asp.net/fmarguerie/archive/2006/02/16/438376.aspx" target="_blank">this thread</a> for more info.<br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

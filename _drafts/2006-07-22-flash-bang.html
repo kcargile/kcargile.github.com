@@ -1,0 +1,27 @@
+---
+layout: post
+published: true
+title: Flash. Bang?
+tags: Software Development, Adobe, Macromedia, Flash, user interface    
+permalink: /2006-07-22-flash-bang.html
+description: I can almost hear the hardcore developer-types grumble every time I talk about Flash. But make no mistake&ndash;Flash is a powerful tool, one that is more perv
+summary: I can almost hear the hardcore developer-types grumble every time I talk about Flash. But make no mistake&ndash;Flash is a powerful tool, one that is more pervasive than you might like. So before you nod off and start drooling in your lap (I really hope you're wearing pants), read further. Besides, if you develop applications for the web, you're eventually going to run across Flash. And if you don't develop applications for the web and you're more than a couple of years away from retirement, you will. Well, maybe.<br />
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>I can almost hear the hardcore developer-types grumble every time I talk about Flash. But make no mistake&ndash;Flash is a powerful tool, one that is more pervasive than you might like. So before you nod off and start drooling in your lap (I really hope you're wearing pants), read further. Besides, if you develop applications for the web, you're eventually going to run across Flash. And if you don't develop applications for the web and you're more than a couple of years away from retirement, you will. Well, maybe.<br /><a name='more'></a><br />I had an interesting discussion with a friend a few days ago about using Flash as a front-end for serious applications. We've both done our fair share of Flash development, some surprisingly complex. My friends position surprised me a bit  hes a Flash guru, yet he feels that Flash's application is limited to small-scale applications. Applications that might only need to parse XML or send an email, but that don't require highly complex logic. I almost disagree, and I have to believe the folks at Adobe do wholeheartedly. Flash is relatively OO, and its got an impressive set of developer-focused features like web service support, SQL data-access, remoting, and so on. Its lightweight, multi-platform, highly prolific, and can run on or off the web. On the surface, Flash appears to be the ultimate thin presentation tier.<br /><br />Unfortunately, from a hard-core development perspective, Flash may already be doomed. There are two very specific reasons for this: First, documentation for the core Flash API and ActionScript (the ECMAScript-based language used to program Flash) is about as bad as it gets. If you're a serious programmer and you're accustomed to the high-quality docs produced by Microsoft or Sun, then you're going to be laughing (or quite possibly crying) your ass off when you dig into what Adobe has offered up. Second, the development environment, while effective for layout and design, is not well-suited for a programmer. The interface is clunky, the language is weakly-typed, and core concepts like scope and encapsulation are widely inconsistent. And no matter how well you architect your ActionScript into externally linked classes, at some point youre going to have to dig into the Flash authoring environment ($900) to wire everything up. You simply cant do all of your development using a different, more capable editor.<br /><br />This is very likely just a factor of the evolution of Flash and the Flash toolkit. But nine versions in, it all still seems like an afterthought. Don't get me wrong  things have gotten better. Just not good enough fast enough.<br /><br />If Adobe seriously wants to compete with other application development platforms on the web  say Microsoft Sparkle or XAML and WPF  then some serious enhancements to the development tools will be paramount.<br /><br />And its a damn shame, too. I like Flash. We go way back. gotoandstop("end");<br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

@@ -1,0 +1,27 @@
+---
+layout: post
+published: true
+title: Custom Build Tasks in .NET 2.0, Part 2
+tags: Software Development, .NET, Cruise Control, MSBuild, Miscellaneous, CC.NET    
+permalink: /2006-03-01-custom-build-tasks-in-net-20-part-2.html
+description: Doug Rohm continues his series on build customization using MSBuild, this time demonstrating integration with CruiseControl.NET.Go to http://dougrohm.com/cs/ar
+summary: Doug Rohm continues his series on build customization using MSBuild, this time demonstrating integration with CruiseControl.NET.<br /><br />Go to <a href="http://dougrohm.com/cs/articles/56.aspx" target="_blank">http://dougrohm.com/cs/articles/56.asp
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>Doug Rohm continues his series on build customization using MSBuild, this time demonstrating integration with CruiseControl.NET.<br /><br />Go to <a href="http://dougrohm.com/cs/articles/56.aspx" target="_blank">http://dougrohm.com/cs/articles/56.aspx</a> for the full story.<br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

@@ -1,0 +1,27 @@
+---
+layout: post
+published: false
+title: Comparing Generic Lists in .NET Using LINQ
+tags: Software Development, generics, C#, LINQ    
+permalink: /2008-11-20-comparing-generic-lists-in-net-using-linq.html
+description: 
+summary: 
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div></div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

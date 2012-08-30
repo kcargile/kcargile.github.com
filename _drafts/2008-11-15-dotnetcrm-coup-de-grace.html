@@ -1,0 +1,27 @@
+---
+layout: post
+published: false
+title: DotNetCRM Coup de Grâce
+tags: open source, DotNetCRM, Software Development, .NET    
+permalink: /2008-11-15-dotnetcrm-coup-de-grâce.html
+description: After two years of working to make DotNetCRM a truly viable open-source CRM platform, I'm throwing in the towel.It's been an eye-opening journey to say the lea
+summary: After two years of working to make <a href="http://www.dotnetcrm.org">DotNetCRM</a> a truly viable open-source CRM platform, I'm throwing in the towel.<br /><br />It's been an eye-opening journey to say the least, one that has given me a new-found re
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>After two years of working to make <a href="http://www.dotnetcrm.org">DotNetCRM</a> a truly viable open-source CRM platform, I'm throwing in the towel.<br /><br />It's been an eye-opening journey to say the least, one that has given me a new-found respect for folks who have been successful at incubating other large-scale, open-source projects. The simple fact is that the product should have gone RTM long ago, a reality that has been chronically plagued by my erratic consulting schedule and lack of any meaningful community support. Perhaps the world just doesn't need another CRM platform...<br /><br />In any case, I'd like to offer my heartfelt thanks to those of you who did take the time to contribute, whether if be with development, design, or domain expertise. Your time and has not gone unnoticed, and I hope you'll consider working with me on other community ventures in the future.<br /><br />My plan, therefore, is to kill <a href="http://sourceforge.net/projects/dotnetcrm/">the project on SourceForge</a> at the end of the year (2008). <br /><br />If you have any interest in taking over, <a href="http://www.bettersoftwarenow.com/make-contact/">contact me</a>.<br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

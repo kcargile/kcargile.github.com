@@ -1,0 +1,41 @@
+---
+layout: post
+published: true
+title: DateTime Differences in .NET and SQL Server 2000
+tags: Software Development, .NET, SQL Server, SQL    
+permalink: /2005-07-26-datetime-differences-in-net-and-sql-server-2000.html
+description: After spending a better part of the day yesterday pulling my hair out unit testing some operator overloads, I and a colleague discovered a subtle difference be
+summary: After spending a better part of the day yesterday pulling my hair out unit testing some operator overloads, I and a colleague discovered a subtle difference between .NETs intrinsic DateTime implementation and SQL Server's DateTime data type that Id never run across  the differences in precision were causing all of my comparisons to fail.<br /><br />The intrinsic .NET DateTime object is a simple value type (a struct), and is contained in mscorlib.dll. Its implementation is fairly simple:  the value is measured as the number of ticks that have passed since January 01, 0001. A tick, in case you were wondering, is a 100 nanoseconds (that's 100 * 10^-9, or 0.0000001 seconds).<br />
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>After spending a better part of the day yesterday pulling my hair out unit testing some operator overloads, I and a colleague discovered a subtle difference between .NETs intrinsic DateTime implementation and SQL Server's DateTime data type that Id never run across  the differences in precision were causing all of my comparisons to fail.<br /><br />The intrinsic .NET DateTime object is a simple value type (a struct), and is contained in mscorlib.dll. Its implementation is fairly simple:  the value is measured as the number of ticks that have passed since January 01, 0001. A tick, in case you were wondering, is a 100 nanoseconds (that's 100 * 10^-9, or 0.0000001 seconds).<br /><a name='more'></a><br />DateTimes in SQL Server are represented a little differently, however. The DateTime type Transact-Sql has a precision of one three hundredths of a second (thats 0.00333 seconds). Use a small date time and the grain gets even bigger, growing all the way to 1 second.<br /><br />Clearly, .NETs DateTime data type is more precise than SQL's. Since humans cant really comprehend the magnitude of 1 billionth of a second, you may be asking yourself, why should I care? In a word, comparisons.<br /><br />Since shuttling a DateTime back-and-forth between SQL Server causes the base time value to change (from what appears to be because of internal rounding; quick testing shows the delta is usually less than 20,000 ticks), the DateTime implementation of Equals and ==  will always fail. A quick look at System.DateTime with Reflector verifies that both of these operations look only at the ticks:<br /><pre class="kccodeblock"><code>public override bool Equals(object value)
+<br />{
+<br />  if (value is DateTime)
+<br />  {
+<br />    time1 = (DateTime)value;
+<br />    return (this.ticks == time1.ticks);
+<br />  }
+<br />  return false;
+<br />}
+<br />
+<br />public static bool operator ==(DateTime d1, DateTime d2)
+<br />{
+<br />  return (d1.ticks == d2.ticks);
+<br />}
+<br /></code></pre>You could use the SqlDateTime object in your business objects to represent DateTime values, but this tightly couples your business objects to the underlying data store  something you should generally try to avoid.<br /><br />In our case, the solution was to build a simple comparison function that compares the requisite DateTime components individually without respect to ticks return the collective result. Keep in mind that, in instances where precision down to hundredths of a second is important, this wont work. But for your typical business application, this approach seems to fit the bill.<br /><br /><a href="http://cdn.kriscargile.com/samples/somedataobject.zip">somedataobject.zip</a><br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

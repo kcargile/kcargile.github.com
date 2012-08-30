@@ -1,0 +1,55 @@
+---
+layout: post
+published: true
+title: Parsing Delimited Strings Using Generics
+tags: Software Development, .NET, string parsing, generics, C#    
+permalink: /2008-04-06-parsing-delimited-strings-using-generics.html
+description: Though not particularly sexy, parsing a delimited string is a pretty common programming task. And while it's not difficult to build a couple of simple function
+summary: Though not particularly sexy, parsing a delimited string is a pretty common programming task. And while it's not difficult to build a couple of simple functions to slice and dice this type of data, you often find yourself duplicating this functionality to accommodate multiple return types. Add to this the fact that .NET doesn't support overloading by return type only, and you'll eventually end up with a mess of nearly identical, yet seemingly disconnected logic.<br /><br />Wouldn't it be nice if you could just write one function that would automatically process your string, and return a list of objects typed exactly how you want? Thanks to generics, you can.<br />
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>Though not particularly sexy, parsing a delimited string is a pretty common programming task. And while it's not difficult to build a couple of simple functions to slice and dice this type of data, you often find yourself duplicating this functionality to accommodate multiple return types. Add to this the fact that .NET doesn't support overloading by return type only, and you'll eventually end up with a mess of nearly identical, yet seemingly disconnected logic.<br /><br />Wouldn't it be nice if you could just write one function that would automatically process your string, and return a list of objects typed exactly how you want? Thanks to generics, you can.<br /><a name='more'></a><br />For example, take the following, comma-delimited string of integers:<br /><blockquote><span style="font-family: Courier New;">"1,2,3,5,8,13"</span></blockquote>To deserialize our Fibonacci sequence we could create a function that uses the <span style="font-family: Courier New;">String.Split</span> method to iterate through the results, cast each of the objects to an <span style="font-family: Courier New;">Int32</span>, and then return a new integer array. Something like this:<br /><pre class="kccodeblock"><code>public static int[] Deserialize(string vals)
+<br />{
+<br />  string[] tempList = vals.Split(‘,’);
+<br />  int[] listWeWant = new int[tempList.Length];
+<br />
+<br />  // iterate and cast; this is a O(n) operation
+<br />  for (int i = 0; i &lt; listWeWant.Length; i++)
+<br />  {
+<br />    // assumes the original string contains only ints
+<br />    listWeWant[i] = int.Parse(tempList[i]);
+<br />  }
+<br />
+<br />  return listWeWant;
+<br />}</code></pre>This approach is pretty commonplace, and it works just fine if all of your delimited strings contain only integers. But by wrapping this functionality inside your own constrained generic function, you can provide your application with a common way to parse delimited strings containing almost any primitive data type.<br /><br />So, our new parsing function will look something like this:<br /><pre class="kccodeblock"><code>public static T[] Deserialize(string vals, char delim)
+<br />where T : class, IConvertible
+<br />{
+<br />  string[] sList = vals.Split(delim);
+<br />
+<br />  // also a O(n) operation
+<br />  T[] arr = (T[])Array.CreateInstance(typeof(T), sList.Length);
+<br />
+<br />  for (int i = 0; i &lt; sList.Length; i++)
+<br />  {
+<br />    Type toft = typeof(T);
+<br />    arr[i] = sList[i] as T;
+<br />  }
+<br />
+<br />  return arr;
+<br />}</code></pre>The generic type parameter <span style="font-family: Courier New;">T</span> allows you to ask for an array of a specific type when calling <span style="font-family: Courier New;">Deserialize</span>. If your string contains integers, you'll get back an <span style="font-family: Courier New;">int[]</span>, doubles a <span style="font-family: Courier New;">double[]</span>, and so on. The only limitation imposed is that the type specified in the type parameter <span style="font-family: Courier New;">T</span> must implement the <span style="font-family: Courier New;">IConvertible</span> interface. This limitation is explicitly defined in the constraint clause at the end of the method signature (the <span style="font-family: Courier New;">where T : class, IConvertible</span> statement.) This constraint tells the compiler to require <span style="font-family: Courier New;">T</span> to be a class that implements <span style="font-family: Courier New;">IConvertible</span>, which provides a bit of type checking for the function and prevents us from passing in an object that our code can't convert.<br /><br />Note that while this approach should be adequate for most needs, you could conceivably modify complex types to work here by implementing <span style="font-family: Courier New;">IConvertible </span>(though you might want to consider XML serialization instead for those cases.)<br /><br />Also keep in mind that this still a linear operation -- O(<em>n</em>) where <em>n</em> is the number of elements in your array. If you are working with very large sets of data the performance hit could be substantial, and you'd be wise to investigate more efficient ways of processing and/or persisting your data.<br /><br /><a href="http://cdn.kriscargile.com/samples/arrayutil.zip">arrayutil.zip</a><br /><br />klc;<br /></div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

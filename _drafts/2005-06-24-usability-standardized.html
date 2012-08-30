@@ -1,0 +1,27 @@
+---
+layout: post
+published: true
+title: Usability Standardized
+tags: Software Development, usability    
+permalink: /2005-06-24-usability-standardized.html
+description: The International Standards Organization (ISO) announced last month that it will accept the Common Industry Format for Usability Test Reports (CIF). CIF's crea
+summary: The International Standards Organization (ISO) announced last month that it will accept the Common Industry Format for Usability Test Reports (CIF). CIF's creators are hoping that this move will bolster the standard, which has seemingly piqued little
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>The International Standards Organization (ISO) announced last month that it will accept the Common Industry Format for Usability Test Reports (CIF). CIF's creators are hoping that this move will bolster the standard, which has seemingly piqued little industry interest.<br /><br />CIF is a format that will allow software purchasers use to compare software's usability ratings on level ground. This as areal victory for formal software usability testing&mdash;an underutilized discipline often characterized as unnecessary by software designers.<br /><br />Hopefully, consumers will take wide advantage of CIF, a move that will foster a more serious focus on software's human factors.<br /><br />You can learn more about CIF <a href="http://zing.ncsl.nist.gov/iusr/documents/cifv1.1b.htm" target="_blank">here</a>.<br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

@@ -1,0 +1,39 @@
+---
+layout: post
+published: true
+title: Migrating a Community Server Blog to WordPress
+tags: Community Server, PHP, Tools, Software Development, XAMPP, IIS7, blogging, WordPress    
+permalink: /2008-08-02-migrating-a-community-server-blog-to-wordpress.html
+description: If you've noticed that something looks markedly different here, then you're right. I recently made the descision to migrate my blogging back-end from Community
+summary: If you've noticed that something looks markedly different here, then you're right. I recently made the descision to migrate my blogging back-end from Community Server to WordPress and, well, I couldn't be happier.<br /><br />That's not to say that Community Server is a bad product; it's not. Community Server is a very powerful, enterprise-class collaboration platform -- somewhat akin to Sharepoint -- with a blog engine thrown into the mix. This makes it incredibly complex, both to install and to manage, a far cry from the no-touch, blog-only deployment of its DotText predecessor. This complexity, combined with a very small online support community, have made Community Server a less than perfect choice for those needing a simple blogging platform.<br />
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>If you've noticed that something looks markedly different here, then you're right. I recently made the descision to migrate my blogging back-end from Community Server to WordPress and, well, I couldn't be happier.<br /><br />That's not to say that Community Server is a bad product; it's not. Community Server is a very powerful, enterprise-class collaboration platform -- somewhat akin to Sharepoint -- with a blog engine thrown into the mix. This makes it incredibly complex, both to install and to manage, a far cry from the no-touch, blog-only deployment of its DotText predecessor. This complexity, combined with a very small online support community, have made Community Server a less than perfect choice for those needing a simple blogging platform.<br /><a name='more'></a><br />To my surprise, however, the migration process was relatively painless. There are more people out there who have moved from Community Server to WordPress than you might expect, the <a href="http://wordpress.org/support/" target="_blank">forums</a> and <a href="http://codex.wordpress.org/" target="_blank">Codex</a> sections on the WordPress website are very helpful, and the community surrounding WordPress is massive. There <em>are</em> places to turn for help.<br /><br />The process of migrating my Community Server data to WordPress became a study in the architecture of WordPress, the WXP XML format, a reintroduction to PHP, and a gentle reminder of the complexities of FOR XML EXPLICIT, all rolled into one.<br /><br />The upside is, this all culminated in WordPress ready import plugins for both Community Server and DotText. I've posted a preliminary release of the Community Server importer below. There are a few important things you should know before you use it:<br /><ul><li>In its current form, the importer depends on the MS SQL-DB lib to connect to the Community Server database. There are a number of issues surrounding this library in PHP, not the least of which is that the PHP team has been distributing the wrong version for several releases. You're must use ntwdblib.dll v2000.80.2039.0 to connect to MSSQL2K and MSSQL2K5 from PHP. Realizing that this poses a significant roadblock for folks who don't have control over their base PHP configuration, or for those in hosted environments where the SQL-DB Lib may be disabled altogether, I'm adding an ODBC-centric routine to the importer. I expect to have this posted here in the next week or two.</li>
+ 
+ <li>While I've gone out of my way to do some pretty in-depth testing, the importer has only been tested using XAMPP v1.6.7 (which creates its own set of issues), PHP v5.2.6, and WordPress v2.6 running on IIS7. I'd be particularly interested in hearing about others' experience using the importer on other platforms.</li>
+ 
+ <li>Because of some differences in the way that Community Server and WordPress define categories and tags, all of your Community Server categories will become both categories and tags in WordPress.</li>
+ 
+ <li>Remember, you're URLs are going to change. You'll probably want to take advantage of URL rewriting to prevent breaking any existing links, and there are several ways to do this. <a href="http://codex.wordpress.org/Using_Permalinks#Using_.22Pretty.22_permalinks" target="_blank">mod-rewrite</a> and the <a href="http://learn.iis.net/page.aspx/466/enabling-pretty-permalinks-in-wordpress/" target="_blank">IIS7 rewriter</a> are the easiest options. If you're hosted on Windows but not using IIS7 or can't install the MS rewrite CTP, you may want to have a look at Dave Bost's post <a href="http://davebost.com/blog/2008/01/28/attempting-some-permalink-magic/" target="_blank">here</a>.</li>
+ 
+ <li>Your PHP process will need write permissions on your website.</li>
+ 
+ <li>If you run into problems, you can enable (somewhat) verbose debugging output by setting the value of the CS_DEBUG constant in the top of CommunityServer.php file to TRUE.</li>
+ 
+ </ul>To install the importer, unzip and copy CommunityServer.php to your /wp-admin/import folder. Launch your site, log in to the management console, click Manage-&gt;Import. Community Server should now appear in the list of installed importers.<br /><br />Please report any bugs that you find, and your feedback is always appreciated!<br /><br />klc;<br /><br /><a href="http://cdn.kriscargile.com/samples/communityserver_wp_importer1.zip">communityserver_wp_importer.zip</a></div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

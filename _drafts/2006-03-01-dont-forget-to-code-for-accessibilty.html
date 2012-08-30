@@ -1,0 +1,27 @@
+---
+layout: post
+published: false
+title: Don't Forget to Code for Accessibilty
+tags: accessibility, Section 508, Software Development, WCAG    
+permalink: /2006-03-01-dont-forget-to-code-for-accessibilty.html
+description: You two have probably noticed that I've been neglecting my blog for the past month or so. And despite what you might think, this is not totally due to laziness
+summary: You two have probably noticed that I've been neglecting my blog for the past month or so. And despite what you might think, this is not totally due to laziness. I severely injured my shoulder&mdash;we'll say, rescuing a pack of newborn puppies from certain doom&mdash;and am just now getting my dexterity back.<br />
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>You two have probably noticed that I've been neglecting my blog for the past month or so. And despite what you might think, this is not totally due to laziness. I severely injured my shoulder&mdash;we'll say, rescuing a pack of newborn puppies from certain doom&mdash;and am just now getting my dexterity back.<br /><a name='more'></a><br />The point I want to make here is nothing revolutionary. But by being sans-arm for 3+ weeks I got a very, very, very small glimpse at how difficult it must be to navigate software for folks who are disabled (and there's a lot of it out there that's difficult to use). So if you are developing, particularly for the Web/UI layer, take a moment to familiarize yourself with <a href="http://www.section508.gov/" target="_blank">Section 508</a> and <a href="http://www.w3.org/TR/WAI-WEBCONTENT/" target="_blank">WCAG</a> if you haven't already. ALL of your users will thank you for it.<br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

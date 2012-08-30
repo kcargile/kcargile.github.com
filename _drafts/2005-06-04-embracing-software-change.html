@@ -1,0 +1,27 @@
+---
+layout: post
+published: true
+title: Embracing Software Change
+tags: agile, Software Development, refactoring, Methodology    
+permalink: /2005-06-04-embracing-software-change.html
+description: Early in my career as a programmer, a mentor warned me about committing what he considered to be the cardinal sin of software development. "Kris", he said, "ne
+summary: Early in my career as a programmer, a mentor warned me about committing what he considered to be the cardinal sin of software development. "Kris", he said, "never change software that works." Foolishly, I followed this advice for a few years before I realized its fallacies.<br /><br />His justification for this philosophy amounted to "if it ain't broke, don't fix it." But this thinking raises several semantic questions. Most importantly, how do you define broken software? Is it characterized by critical defects, by imperfection, or by both? Or is it something else altogether? And when do you stop "fixing" broken software?<br />
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>Early in my career as a programmer, a mentor warned me about committing what he considered to be the cardinal sin of software development. "Kris", he said, "never change software that works." Foolishly, I followed this advice for a few years before I realized its fallacies.<br /><br />His justification for this philosophy amounted to "if it ain't broke, don't fix it." But this thinking raises several semantic questions. Most importantly, how do you define broken software? Is it characterized by critical defects, by imperfection, or by both? Or is it something else altogether? And when do you stop "fixing" broken software?<br /><a name='more'></a><br />My mentor, it would seem, had done me a great disservice. His advice taught me that software is characteristically unstable and unchanging, and that&mdashtry as we might&mdashthere's no way to adequately test software before it is released.<br /><br />Fortunately for me, I finally saw the bigger picture. Fortunately for software, folks don't always follow this mantra. Windows 3.1 wasn't broken, but Microsoft chose to improve it anyways. The i286 was capable machine, yet we have the Pentium. Such thinking serves only to stifle innovation.<br /><br />Besides, in the software business there are several schools that embrace the idea of change. Agile development methodologies recognize change as a fundamental part of the development process. Refactoring tools, performance testing, and design patterns all encourage us to constantly improve our software...<br /><br />These ideas aren't new of course, but they are slowly seeping further into mainstream mentality. More and more copies of Fowler's classic <a href="http://www.amazon.com/exec/obidos/redirect?tag=kriscargileco-20&creative=9325&camp=1789&link_code=ur2&path=ASIN/0201485672/qid=1115041779/sr=2-1/ref=pd_bbs_b_2_1"> Refactoring: Improving the Design of Existing Code</a> are appearing on office bookshelves, there's a preponderance of quality refactoring tools available, and Agile methodologies are popping up in shops traditionally resigned to more heavyweight approaches.<br /><br />The next few years should will demonstrate how well these techniques really work. But if you've spent any amount of time working with them, you already know that they do. You also probably know how difficult it can be to evangelize them and how frequent the roadblocks are, but that's another story.<br /><br />In any event, it's nice to see that we sometimes actually embrace change.<br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

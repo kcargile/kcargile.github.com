@@ -1,0 +1,27 @@
+---
+layout: post
+published: false
+title: Now on Community Server
+tags: open source, Community Server, Tools, Software Development, blogging    
+permalink: /2005-11-26-now-on-community-server.html
+description: I finally took the time this weekend to move my site from .Text to Community Server. Community Server is an impressive package -- with several of the features 
+summary: I finally took the time this weekend to move my site from .Text to Community Server. Community Server is an impressive package -- with several of the features that were missing from .Text&mdash;and the support community is large.<br /><br />Setting C
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>I finally took the time this weekend to move my site from .Text to Community Server. Community Server is an impressive package -- with several of the features that were missing from .Text&mdash;and the support community is large.<br /><br />Setting CS up was relatively painless with one specific exception: enabling a single blog configuration. Luckily, I found two great tools that made migration almost seamless. <a href="http://www.qgyen.net/csaddins/singlesite/Default.aspx" target="_blank">Ken Robertson's single site configuration tool</a> creates the correct configuration mappings for CS's URL rewriter (preventing you from having to mess around with redirects, etc.), and <a href="http://kevinharder.com/communityserver/default.aspx#DotText-CS-Converter" target="_blank">Kevin Harder's .Text migration tool</a> ports legacy .Text content over to CS.<br /><br />Both of these tools as well as the CS installation went smoothly, though I'd recommend that you test thoroughly if you're migrating a .Text site&mdash;there are several options that can't be easily changed that you'll want to get right.<br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>

@@ -1,0 +1,27 @@
+---
+layout: post
+published: true
+title: Got UML Fever?
+tags: Software Development, UML, design patterns, architecture    
+permalink: /2005-05-05-got-uml-fever.html
+description: The UML is a very effective software design tool. It can help us stay agile, communicate with brevity, and prove concepts without hammering out a single line o
+summary: The UML is a very effective software design tool. It can help us stay agile, communicate with brevity, and prove concepts without hammering out a single line of code. Yes, UML is an effective too—that is, when used by a qualified practitioner. Boeing
+---
+  <div class="post"><h2>{{ page.title }}</h2><strong>{{ page.date | date_to_long_string }}</strong><div>The UML is a very effective software design tool. It can help us stay agile, communicate with brevity, and prove concepts without hammering out a single line of code. Yes, UML is an effective too—that is, when used by a qualified practitioner. Boeing's Alex Bell eloquently outlines just when UML might be your enemy in <a href="http://www.acmqueue.com/modules.php?name=Content&amp;pa=showpage&amp;pid=291&amp;page=1" target="_blank"><em>UML Fever: Diagnosis and Recovery</em></a> (link compliments of <a href="http://www.acmqueue.com/" target="_blank">ACM Queue</a>).<br /><br />klc;</div>
+    {% unless page.tags == empty %}
+    {% assign tags_list = page.tags %}
+    <p class="tags">
+      Tagged: {{ page.tags | join : ', ' }}
+    </p>
+    {% endunless %}
+	<div class="sharing"><span class="st_facebook_large" displayText="Facebook" /><span class="st_twitter_large" displayText="Tweet" /><span class="st_linkedin_large" displayText="LinkedIn" /><span class="st_pinterest_large" displayText="Pinterest" /></div><div id="comments"><div id="disqus_thread" /><script type="text/javascript">
+		var disqus_shortname = 'kriscargile';
+		var disqus_title = '{{ page.title }}'
+		var disqus_identifier = '{{ page.url }}';
+		var disqus_url = '{{ site.production_url }}{{ page.url }}';
+		(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	  </script><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div>
