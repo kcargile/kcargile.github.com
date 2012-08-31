@@ -77,16 +77,6 @@
             }
           }).render().setUser('kriscargile').start();
           </script>
-          <div class="archives">
-            {% for month in page.months %}
-              {{ month | date:"%B" }} {{ month | date:"%Y" }}
-              <ul>
-              {% for post in page.posts_by_month[month] %}
-                <li><a href="{{ post.url }}">{{ post.title | truncate:65 }}</a></li>
-              {% endfor %}
-              </ul>
-            {% endfor %}
-          </div>
         </div>
       </div>
     </div>
