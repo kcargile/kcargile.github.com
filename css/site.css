@@ -31,3 +31,5 @@ footer a{color:#666;text-decoration:none;}
 .codesample{background-color:#eee;border:1px dotted #999;}
 header,.twtr-hd,.twtr-ft{display:none;}
 a:hover,footer a:hover{color:#fff;background:#369;text-decoration:none;}
+#post-pagination{margin-top:2em;}
+#post-pagination .next{text-align:right;}
