@@ -2,7 +2,7 @@
 layout: post
 published: true
 title: Using the MSEL 2.0 in an N-Tier Environment
-tags: open source, Software Development, .NET, MSEL, Miscellaneous, Enterprise Library    
+tags: [open source, Software Development, .NET, MSEL, Miscellaneous, Enterprise Library]
 permalink: /2006-01-13-using-the-msel-20-in-an-ntier-environment.html
 description: A while back, I blogged about using alternate configuration contexts with the MSEL 1.1. It turns out that even with the improved configuration capabilities of 
 summary: A while back, I blogged about using alternate configuration contexts with the MSEL 1.1. It turns out that even with the improved configuration capabilities of .NET 2.0, using the MSEL in a loosely coupled, n-tier environment will also require you to jump through some hoops.<br /><br />The primary reason for this is that the .NET CLR only gives you one configuration context per AppDomain (<a href="http://blogs.msdn.com/suzcook/" target="_blank">Suzanne Cook</a> has some great info on her website about this). A stand-alone business logic layer therefore would have configuration context equivalent to Web.config if you're using it in an ASP.NET application, thus rendering your app.config file invisible.<br />

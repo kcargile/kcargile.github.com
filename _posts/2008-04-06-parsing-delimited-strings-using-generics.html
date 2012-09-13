@@ -2,7 +2,7 @@
 layout: post
 published: true
 title: Parsing Delimited Strings Using Generics
-tags: Software Development, .NET, string parsing, generics, C#    
+tags: [Software Development, .NET, string parsing, generics, C#]    
 permalink: /2008-04-06-parsing-delimited-strings-using-generics.html
 description: Though not particularly sexy, parsing a delimited string is a pretty common programming task. And while it's not difficult to build a couple of simple function
 summary: Though not particularly sexy, parsing a delimited string is a pretty common programming task. And while it's not difficult to build a couple of simple functions to slice and dice this type of data, you often find yourself duplicating this functionality to accommodate multiple return types. Add to this the fact that .NET doesn't support overloading by return type only, and you'll eventually end up with a mess of nearly identical, yet seemingly disconnected logic.<br /><br />Wouldn't it be nice if you could just write one function that would automatically process your string, and return a list of objects typed exactly how you want? Thanks to generics, you can.<br />

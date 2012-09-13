@@ -2,7 +2,7 @@
 layout: post
 published: true
 title: Creating a Singleton Configuration Manager
-tags: Software Development, .NET, design patterns, C#, singleton    
+tags: [Software Development, .NET, design patterns, C#, singleton]
 permalink: /2005-06-14-creating-a-singleton-configuration-manager.html
 description: Why Use a Configuration Manager?In enterprise application development, loose coupling between tiers is paramount to building a reusable, extensible solution. O
 summary: <strong>Why Use a Configuration Manager?</strong><br /><br />In enterprise application development, loose coupling between tiers is paramount to building a reusable, extensible solution. One of the best ways to enforce loose coupling is to make sure that the lower layers (i.e. tiers) of an application are unaware of those on top of it. Its this idea that has spawned the event-heavy paradigm available in contemporary programming languages.<br /><br />In MS.NET, we have a few different options for persisting and retrieving configuration data for an application. Probably the most familiar is the ubiquitous configuration file, but there's a host of other ways to store this information: as simple text, as xml, or in the Windows registry. Regardless of how you choose to store this information, however, it is likely that you will need to make it available throughout your application. This means that accessing a domain specific configuration file  say web.config  directly from other layers violates the concept of loose coupling and undermines encapsulation. Plus, there is no guarantee that the application requiring configuration data will be executing under a specific context (HttpContext, for example).<br />

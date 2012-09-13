@@ -2,7 +2,7 @@
 layout: post
 published: true
 title: DateTime Differences in .NET and SQL Server 2000
-tags: Software Development, .NET, SQL Server, SQL    
+tags: [Software Development, .NET, SQL Server, SQL]
 permalink: /2005-07-26-datetime-differences-in-net-and-sql-server-2000.html
 description: After spending a better part of the day yesterday pulling my hair out unit testing some operator overloads, I and a colleague discovered a subtle difference be
 summary: After spending a better part of the day yesterday pulling my hair out unit testing some operator overloads, I and a colleague discovered a subtle difference between .NETs intrinsic DateTime implementation and SQL Server's DateTime data type that Id never run across  the differences in precision were causing all of my comparisons to fail.<br /><br />The intrinsic .NET DateTime object is a simple value type (a struct), and is contained in mscorlib.dll. Its implementation is fairly simple:  the value is measured as the number of ticks that have passed since January 01, 0001. A tick, in case you were wondering, is a 100 nanoseconds (that's 100 * 10^-9, or 0.0000001 seconds).<br />
