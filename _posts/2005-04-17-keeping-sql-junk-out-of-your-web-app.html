@@ -3,8 +3,8 @@ layout: post
 published: true
 title: Keeping SQL Junk Out of Your Web App
 tags: [Software Development, XSS, security, SQL]
-permalink: /2005-04-17-keeping-sql-junk-out-of-your-web-app.html
-description: I was recently reminded of the dangers of not handling SQL injections in input validation while testing a web app about to go into production. Don't let this o
-summary: I was recently reminded of the dangers of not handling SQL injections in input validation while testing a web app about to go into production. Don't let this one fall through the cracks! Make sure that your development and QA teams are well-educated 
+permalink: /2005/04/keeping-sql-junk-out-of-your-web-app.html
+description: I was recently reminded of the dangers of not handling SQL injections in input validation while testing a web app about to go into production.
+summary: I was recently reminded of the dangers of not handling SQL injections in input validation while testing a web app about to go into production. Don't let this one fall through the cracks! Make sure that your development and QA teams are well-educated on SQL injection (and XSS attacks for that matter), and make sure that they have ample time to examine the intricacies of any third-party UI controls being used in the UI.
 ---
 <div>I was recently reminded of the dangers of not handling SQL injections in input validation while testing a web app about to go into production. Don't let this one fall through the cracks! Make sure that your development and QA teams are well-educated on SQL injection (and XSS attacks for that matter), and make sure that they have ample time to examine the intricacies of any third-party UI controls being used in the UI.<br /><br />While searching the Net for some good reference materials for exactly this purpose, I came across a 2002 whitepaper  <a href="http://www.nextgenss.com/papers/advanced_sql_injection.pdf" target="_blank"><em>Advanced SQL Injection In SQL Server Applications</em></a>, written by Chris Anley of NGS Software  which does just this quite well. Chris does a great job of reminding us of just how simple it is to catastrophically affect a SQL server using only a few basic characters.<br /><br />klc;</div>
