@@ -1,0 +1,31 @@
+---
+layout: post
+published: true
+title: Using Resource Assemblies as a Unit of Versioning
+tags: Tools, Software Development, unit testing, continuous integration, TDD    
+permalink: /2005-03-06-using-resource-assemblies-as-a-unit-of-versioning.html
+description: If you've had the opportunity to build a localized application, chances are you've built a resource assembly to support localization efforts. But in a large, h
+summary: If you've had the opportunity to build a localized application, chances are you've built a resource assembly to support localization efforts. But in a large, highly partitioned solution, deciding exactly where to store your resources is somewhat of a conundrum. Either you end up with twice as many projects in your solution, or you have a single resource assembly supporting your entire application.<br /><br />Of course, neither of these situations is ideal. You're either stuck with a solution that rapidly becomes so large that its unmanageable, or you've coupled your framework and business logic to a single resource assembly  a proposition that means your resource assembly doesn't reflect the segmentation in your assembly. Add to that the fact that very few large applications are ever static, and youve got a real challenge on your hands.<br />
+---
+<div>If you've had the opportunity to build a localized application, chances are you've built a resource assembly to support localization efforts. But in a large, highly partitioned solution, deciding exactly where to store your resources is somewhat of a conundrum. Either you end up with twice as many projects in your solution, or you have a single resource assembly supporting your entire application.<br /><br />Of course, neither of these situations is ideal. You're either stuck with a solution that rapidly becomes so large that its unmanageable, or you've coupled your framework and business logic to a single resource assembly  a proposition that means your resource assembly doesn't reflect the segmentation in your assembly. Add to that the fact that very few large applications are ever static, and youve got a real challenge on your hands.<br /><a name='more'></a><br />And there are ways other than localization that resource assemblies can benefit your application. For the past two months, Ive been part of a team tasked with refactoring a mission-critical, core application for a rapidly growing startup. The business model of is changing on a daily basis, and weve quickly recognized that responding this change will be fundamental to the success of our project.<br /><br />For example, one of the ways that were using resource assemblies is as a unit of versioning for our data access layer. By storing the names of stored procedures in the resource assembly, we can more easily version our database in response to changes in the business or the underlying data model. And we've already accommodated most future localization needs, despite the fact that they've yet to be specified.<br /><br />The key to implementing this for us has been <a href="http://projectdistributor.readify.net/Releases/Release.aspx?releaseId=9" target="_blank">Readify's String Resource Generator</a> (SRG). The SRG is a command-line utility that can be configured to automatically generate a resource class for your assembly using a simple source text file. You can have Visual Studio execute the SRG as part of your build process, or you can call it from an automated build tool like NAnt.<br /><br />The documentation included with SRG is somewhat limited, left mostly to the sample solutions and readme files. But is usage is straight forward. For example, an SR.strings used to version stored procedures for an assembly might look something like this (comments have been removed for brevity):<br /><pre class="kccodeblock"><code>#! accessor_class_accessibility = public
+<br />#! culture_info = Resources.CultureInfo
+<br />#! generate_class = false
+<br />#! resource_namespace = kriscargile.com.examples.resources
+<br />
+<br />[strings]
+<br />; Stored Procedure Names
+<br />AccountSelectStoredProcedure = "spCOAccountSelById"
+<br />AccountSelectBySalesRepStoredProcedure = "spCOAccountSelByRep"
+<br />AccountSelectByIndustryStoredProcedure = "spCOAccountSelByIndustry"
+<br />AccountDeleteStoredProcedure = "spCOAccountDel"
+<br />AccountUpdateStoredProcedure = "spCOAccountUpd"
+<br />AccountAddStoredProcedure = "spCOAccountUpd"</code></pre><br />Were using the Microsoft string resource format (take a close look at the source for the Enterprise Library projects), so our SR.strings entries can be accessed at design time using simple dot syntax. So, getting the name of the stored procedure used to select accounts would look something like:<br /><pre class="kccodeblock"><code>SR.AccontSelectStoredProcedure</code></pre><br />That's it. The SRG tool does most of the heavy lifting at compile time (were using NAnt and CruiseControl to automate our builds, most of the build file is omitted):<br /><pre class="kccodeblock"><code>&lt;if test="${file::exists('SR.strings')}"&gt;
+<br />&lt;attrib readonly="false" file=“SR.cs“ /&gt;
+<br />&lt;attrib readonly="false" file=“SR.resx“ /&gt;
+<br />&lt;exec program="SRGenerator"&gt;
+<br />&lt;arg value="cs" /&gt;
+<br />&lt;arg value="${project.name}" /&gt;
+<br />&lt;arg value="SR.strings" /&gt;
+<br />&lt;/exec&gt;
+<br />&lt;/if&gt;
+<br /></code></pre><br />The real key here is the NAnt tag that calls SRGenerator.exe. Now changes to text in our application, additional localization requirements, or changes to our data model require only a quick edit and recompile of the SR.strings text file for the calling assembly.<br /><br /><a href="http://cdn.kriscargile.com/samples/sr.zip">SR.zip</a><br /><br />klc;</div>

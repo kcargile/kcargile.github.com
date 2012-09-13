@@ -1,0 +1,25 @@
+---
+layout: post
+published: false
+title: Paging External Lists in SharePoint 2010
+tags: SharePoint 2010, hacks, BDC, BCS    
+permalink: /2011-02-16-paging-external-lists-in-sharepoint-2010.html
+description: Two of the many big improvements that Microsoft touted for the latest release of SharePoint were enhanced BCS functionality and better support for large lists.
+summary: Two of the many big improvements that Microsoft touted for the latest release of SharePoint were enhanced BCS functionality and better support for large lists. As is turns out, both promises fall fairly short in some pretty fundamental ways.<br /><br />This became immediately apparent to my team when we tried to store what for SharePoint amounts to a large and apparently unanticipated dataset: a list of the roughly 40,000 US ZIP codes.
+---
+<div>
+    <p>
+        Two of the many big improvements that Microsoft touted for the latest release of SharePoint were enhanced BCS functionality and better 
+        support for large lists. As is turns out, both promises fall fairly short in some pretty fundamental ways.
+    </p>
+    <p>
+        This became immediately apparent to my team when we tried to store what for SharePoint amounts to a large and apparently unanticipated dataset: a list of 
+        the roughly 40,000 US ZIP codes. Our performance problems were substantial and roughly equivalent whether using a basic list or database-backed external 
+        content type, albeit for slightly different reasons. In any case, what you've heard about 2010's&nbsp;<a href="http://www.sharepointanalysthq.com/2010/05/large-list-improvements-in-sharepoint-2010/">
+        support for bazillions of items in a list</a>&nbsp;is pretty much complete bullshit. There's a 5,000 row practical limit due to 
+        <a href="http://office.microsoft.com/en-us/sharepoint-foundation-help/manage-lists-and-libraries-with-many-items-HA010377496.aspx#_Toc264017709">MSSQL Server's row locking strategy</a>, 
+        which is compounded by abhorrent performance of the XSLT-based rendering engine built into many of SharePoint's out-of-the-box controls. A busy Internet-facing site using these with 
+        more than a few thousand rows in a popular list could very well be dead in the water.
+    </p>
+    <p></p>    
+        Ultimately we decided to go with an external content type approach, though our databinding strategy has been to use domain objects (simple LINQ-to-SQL entities) directly from our controls. We're using the external lists and BCS functionality only as a simplistic data entry tool for the content team. Performance in delegate controls, webcontrols, and webparts is acceptable and implementation is wicked-easy, a welcome departure from normal SharePoint tedium.<br /><br />The crux, however, is that SharePoint's web-based management tools (think /_layouts/) render list data using an SPView and XSLT.&nbsp;SharePoint provides a default paging&nbsp;mechanism but it's still up to you to provide a server side implementation. One&nbsp;<a href="http://lightningtools.com/blog/archive/2010/06/25/sharepoint-2010-external-list-paging-ndash-server-side.aspx">common approach</a> is to expand and contract the size of the dataset as a user traverses through the virtual pages (essentially a TOP N style query), but this means that by the time you arrive on last few pages, the bulk of the dataset will be loaded from persistent storage <i>on each postback</i>. <br /><br />Of course this completely defeats the purpose of paging and will eventually&nbsp;time out on big lists.&nbsp;Deviating from this approach by using standard paging patterns&ndash;chunking records, for example&ndash;confuses the data view controls (e.g. in AllItems.aspx), causing the control to page erratically or not at all. It's a bit disapointing that something as simple as paging a grid managed to slip through QA but, hey, shit happens.<br /><br />The good news is that there's a relatively simple, albeit ugly solution: trick SharePoint into thinking it's rendering the entire dataset.</div>

@@ -1,0 +1,42 @@
+---
+layout: post
+published: true
+title: Using TIP to Unit-Test Non-Invasively
+tags: TIP, transactions, Tools, Software Development, .NET, unit testing, C#, NUnit, DTC, TDD    
+permalink: /2005-06-15-using-tip-to-unittest-noninvasively.html
+description: If you are developing using .NET for Windows XP SP2 or Windows 2003 Server, one of the cooler features you can take advantage of is the support for COM+ transa
+summary: If you are developing using .NET for Windows XP SP2 or Windows 2003 Server, one of the cooler features you can take advantage of is the support for COM+ transactions via the Transaction Internet Protocol.<br /><br />Transaction Internet Protocol, or TIP, is a MSDTC feature that allows (among other things) .NET assemblies to request COM+ transaction services at runtime. This really amounts to dynamically entering your component into an Enterprise Services context, starting (or joining) a transaction, then exiting from the Enterprise Services context to go about your business.<br />
+---
+<div>If you are developing using .NET for Windows XP SP2 or Windows 2003 Server, one of the cooler features you can take advantage of is the support for COM+ transactions via the Transaction Internet Protocol.<br /><br />Transaction Internet Protocol, or TIP, is a MSDTC feature that allows (among other things) .NET assemblies to request COM+ transaction services at runtime. This really amounts to dynamically entering your component into an Enterprise Services context, starting (or joining) a transaction, then exiting from the Enterprise Services context to go about your business.<br /><a name='more'></a><br />There are some real obvious advantages to using transactions in this way, not the least of which is that you get all of the advantages of a COM+ transaction without building a full-blown serviced component  not a trivial consideration in light of .NETs single implementation inheritance.<br /><br />Transactions have always been a great way to supplement TDD. For MS.Net TIP fits the bill, and can be used to easily prevent leaving behind evidence of your tests. Lets say, for example, that I need to write a fixture that tests a user registration class. Assume that as part of the standard registration process well do a few database inserts and send an email to the user confirming his registration. If any one of these operations fail I want to rollback database changes, and Id also like to avoid sending a user an invalid welcome email.<br /><br />Of course, you could implement this fairly trivial example using basic conditional logic. But in a large, complex system this approach almost always yields complex, hard-to-follow algorithms. Again, you could replace these with a pattern like strategy, but why bother when enterprise services has already done all of the tedious work?<br /><br />If you've not used TIP before, you'll need to enable it in your environment. Windows 2003 does not install network DTC support automatically, so you'll need to run through a few simple configuration steps before you can start testing (there are several good KB articles on MSDN and TechNet on how to do this; search for network DTC TIP).<br /><br />Keep in mind that you'll need network DTC installed and TIP enabled on every server that will be involved in a transaction. This means that DTC must be setup on the database server, web servers, email servers, etc. DTC also has some specific port requirements, so you may need to loosen port restrictions in your production environment.<br /><br />Once you've got the configuration nailed down, the rest is easy. Here's our sample NUnit registration test fixture that uses a TIP transaction to rollback changes:<br /><pre class="kccodeblock"><code>[TestFixture]
+<br />public class SampleTIPTestFixture
+<br />{
+<br />  [TestFixtureSetUp]
+<br />  public void Init()
+<br />  {
+<br />    // using a TIP transaction
+<br />    ServiceConfig mComCtx = new ServiceConfig();
+<br />    mComCtx.Transaction = TransactionOption.Required;
+<br />    ServiceDomain.Enter(mComCtx);
+<br />  }
+<br />
+<br />  [TestFixtureTearDown]
+<br />  public void CleanUp()
+<br />  {
+<br />    // will cause ALL tests to rollback
+<br />    ContextUtil.SetAbort();
+<br />
+<br />    // exit the transaction
+<br />    ServiceDomain.Leave();
+<br />  }
+<br />
+<br />  [Test]
+<br />  public void MyTransactionalTest()
+<br />  {
+<br />    bool regResult = false;
+<br />
+<br />    // do database inserts, send emails, etc.
+<br />    // see if calls were successful
+<br />
+<br />    Assert.IsTrue(regResult);
+<br />  }
+<br />}</code></pre><br />Happy testing!<br /><br /><a href="http://cdn.kriscargie.com/samples/sampletiptestfixture.zip">sampletiptestfixture.zip</a><br /><br />klc;</div>
