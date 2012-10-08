@@ -1,29 +1,36 @@
----
-layout: default
-title: Home
----
-
-{% for post in paginator.posts %}
-	<div class="postsummary">
-		<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-		<h4>Posted on: {{ post.date | date_to_string }}</h4>
-		<p>{{ post.summary }}</p>
-		<p><a href="{{ post.url }}">read more &raquo;</a></p>
-	</div>
-{% endfor %}
-<div class="pagination">
-  {% if paginator.previous_page %}
-  <p class="previous">
-    {% if paginator.previous_page == 1 %}
-    <a href="/">&laquo;&nbsp;Newer Posts</a>
-    {% else %}
-    <a href="/page{{paginator.previous_page}}">&laquo;&nbsp;Newer Posts</a>
-    {% endif %}
-  </p>
-  {% endif %}
-  {% if paginator.next_page %}
-    <p class="next">
-      <a href="/page{{paginator.next_page}}">Older Posts&nbsp;&raquo;</a>
-    </p>
-  {% endif %}
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Kristopher Cargile">
+    <meta name="author" content="Kristopher Cargile">
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Kristopher Cargile"/>
+    <meta property="og:type" content="blog"/>
+    <meta property="og:url" content="http://www.kriscargile.com"/>
+    <meta property="og:site_name" content="Kristopher Cargile"/>
+    <meta property="og:description" content="Kristopher Cargile" />
+    <meta name="google-site-verification" content="2Q9bbBnFt2UZNNe5bjKyEDzbw1YutewBIXXOuk5kK54" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="css/sitelanding.css" media="screen" />
+    <title>Kristopher Cargile</title>
+  </head>
+  <body>
+    <header>
+	  <h1>Kristopher Cargile</h1>
+    </header>
+    <footer>
+      <p class="externallinks"><a href="http://www.github.com/kcargile">Github</a> | <a href="http://linkd.in/S6iQl2">LinkedIn</a> | <a href="http://linkd.in/S6iQl2">Twitter</a></p>
+    </footer>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-488710-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>
